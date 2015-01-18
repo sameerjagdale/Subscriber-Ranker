@@ -1,6 +1,7 @@
 package subscriber;
 
 import java.io.BufferedReader;
+import java.util.HashMap;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -77,6 +78,14 @@ public class SubscriberInfo {
 				day.equals(info.getDay());
 	}
 
+	@Override
+	public int hashCode() {
+		return serviceName.hashCode() +
+			serviceType.hashCode() +
+			Long.valueOf(subscriberId).hashCode() + 
+			day.hashCode();
+	}
+
 	public static void main(String args[]) {
 			if(args.length < 1) {
 					System.out.println("No File name provided");
@@ -84,9 +93,20 @@ public class SubscriberInfo {
 			try {	
 					BufferedReader br =  new BufferedReader(new FileReader((new File(args[0])).
 						getAbsolutePath()));
+					HashMap<SubscriberInfo, Integer> map =  new HashMap<SubscriberInfo, Integer>();
 					for(int i = 0; i < 20; i++) {
 							SubscriberInfo info  = genSubscriberInfo(br.readLine());
-							System.out.println(info.toString());
+							// System.out.println(info.toString());
+							if(map.containsKey(info)) {
+								System.out.println("Match Found");
+								map.put(info,Integer.valueOf(map.get(info).intValue() + 1));
+							} else {
+								map.put(info, new Integer(1));
+							}
+					}
+					
+					for( SubscriberInfo info : map.keySet()) {
+						System.out.println(info + " " +  map.get(info).toString());
 					}
 			} catch(IOException e) {
 				e.printStackTrace();
