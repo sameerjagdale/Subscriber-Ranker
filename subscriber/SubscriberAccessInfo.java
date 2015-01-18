@@ -2,11 +2,25 @@ package subscriber;
 
 import java.util.HashMap;
 import java.io.*;
+import org.apache.hadoop.io.WritableComparable;
 
-public class SubscriberAccessInfo {
+public class SubscriberAccessInfo implements  WritableComparable{
 	private SubscriberInfo subInfo;
 	private String timestamp;
 	
+	public void write(DataOutput out) throws IOException {
+			
+  	}
+	
+	public void readFields(DataInput in) throws IOException {
+		
+	}
+	
+	@Override
+	public int compareTo(Object other) {
+		return 1;
+	}
+
 	public SubscriberAccessInfo(SubscriberInfo info, String time) {
 		subInfo = info;
 		timestamp = time;
@@ -80,7 +94,6 @@ public class SubscriberAccessInfo {
 			} 
 
 	}
-
 
 }
 
