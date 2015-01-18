@@ -1,7 +1,9 @@
+package subscriber;
 public class SubscriberInfo {
 	private String serviceType;
 	private String serviceName;
 	private long subscriberId;
+	private String day;
 	
 	public SubscriberInfo(String serviceType, String serviceName,
 			long subscriberId) {
