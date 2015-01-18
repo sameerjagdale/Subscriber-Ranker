@@ -2,17 +2,21 @@ package subscriber;
 
 import java.io.BufferedReader;
 import java.util.HashMap;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.FileNotFoundException;
+import org.apache.hadoop.io.WritableComparable;
+import java.io.*;
 
-public class SubscriberInfo {
+public class SubscriberInfo implements WritableComparable<SubscriberInfo> {
 	private String serviceType;
 	private String serviceName;
 	private long subscriberId;
 	private String day;
 	
+	public SubscriberInfo() {
+		serviceName = null;
+		serviceType = null;
+		subscriberId = 0;
+		day = null;
+	}	
 	public SubscriberInfo(String serviceType, String serviceName,
 			long subscriberId, String day) {
 		this.serviceType = serviceType;
@@ -21,6 +25,25 @@ public class SubscriberInfo {
 		this.day = day;
 	}
 	
+	public void write(DataOutput out) throws IOException {
+		out.writeUTF(serviceType);
+		out.writeLong(subscriberId);
+		out.writeUTF(serviceName);
+		out.writeUTF(day);
+  	}
+	
+	public void readFields(DataInput in) throws IOException {
+		serviceType = in.readUTF();	
+		subscriberId = in.readLong();
+		serviceName = in.readUTF();	
+		day = in.readUTF();	
+	}
+	
+	@Override
+	public int compareTo(SubscriberInfo other) {
+		return day.compareTo(other.getDay());
+	}
+
 	public static SubscriberInfo  genSubscriberInfo(String tsvLine) {
 		String[] fields = tsvLine.split("[\t ]+");
 		if(fields.length < 3) {
