@@ -4,21 +4,26 @@ import java.util.HashMap;
 import java.io.*;
 import org.apache.hadoop.io.WritableComparable;
 
-public class SubscriberAccessInfo implements  WritableComparable{
+public class SubscriberAccessInfo implements  WritableComparable<SubscriberAccessInfo>{
 	private SubscriberInfo subInfo;
 	private String timestamp;
 	
 	public void write(DataOutput out) throws IOException {
-			
+		subInfo.write(out);
+		out.writeUTF(timestamp);		
   	}
-	
+	public SubscriberAccessInfo() {
+		subInfo = new SubscriberInfo();	
+		timestamp = null;
+	}	
 	public void readFields(DataInput in) throws IOException {
-		
+		subInfo.readFields(in);
+		timestamp = in.readUTF();		
 	}
 	
 	@Override
-	public int compareTo(Object other) {
-		return 1;
+	public int compareTo(SubscriberAccessInfo other) {
+		return timestamp.compareTo(other.getTimestamp());		
 	}
 
 	public SubscriberAccessInfo(SubscriberInfo info, String time) {
