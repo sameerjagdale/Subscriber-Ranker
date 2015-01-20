@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.util.StringTokenizer;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -12,7 +11,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import subscriber.*;
 
-public class WordCount {
+public class SubscriberRanker {
 	final static  String intermediatePath = "intermediate";	
 	 public static void main(String[] args) throws Exception {
 		execPhase1(args);
@@ -20,14 +19,14 @@ public class WordCount {
   	}
 
 	public static void execPhase1(String args[]) throws Exception{
-		Job job = setupClass(new Configuration(), "Phase 1", WordCount.class, TokenizerMapper.class,
+		Job job = setupClass(new Configuration(), "Phase 1", SubscriberRanker.class, TokenizerMapper.class,
 			IntReducer.class, IntReducer.class, SubscriberAccessInfo.class, IntWritable.class, 
 			args[0], intermediatePath);
 		job.waitForCompletion(true);
 	}
 
 	public static void execPhase2(String args[]) throws Exception{
-		Job job = setupClass(new Configuration(), "Phase 2", WordCount.class, SubscriberMapper.class,
+		Job job = setupClass(new Configuration(), "Phase 2", SubscriberRanker.class, SubscriberMapper.class,
 			SubscriberReducer.class, SubscriberReducer.class, SubscriberInfo.class, IntWritable.class, 
 			intermediatePath, args[1]);
 		job.waitForCompletion(true);
