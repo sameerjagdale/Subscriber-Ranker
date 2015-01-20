@@ -41,7 +41,7 @@ public class SubscriberInfo implements WritableComparable<SubscriberInfo> {
 	
 	@Override
 	public int compareTo(SubscriberInfo other) {
-		return day.compareTo(other.getDay());
+		return (new Long(subscriberId)).compareTo(new Long(other.getSubscriberId()));
 	}
 
 	public static SubscriberInfo  genSubscriberInfo(String tsvLine) {
@@ -98,7 +98,7 @@ public class SubscriberInfo implements WritableComparable<SubscriberInfo> {
 		// return  serviceName.equals(info.getServiceName()) &&
 		// 		serviceType.equals(info.getServiceType()) &&
 		// 		(subscriberId == info.getSubscriberId()) &&
-		// 		day.equals(info.getDay());
+			// return 	day.equals(info.getDay());
 		return toString().equals(info.toString());
 	}
 

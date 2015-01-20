@@ -23,7 +23,10 @@ public class SubscriberAccessInfo implements  WritableComparable<SubscriberAcces
 	
 	@Override
 	public int compareTo(SubscriberAccessInfo other) {
-		return timestamp.compareTo(other.getTimestamp());		
+		if(timestamp.compareTo(other.getTimestamp()) == 0) {
+			return subInfo.compareTo(other.getSubInfo());
+		}
+		return timestamp.compareTo(other.getTimestamp());
 	}
 
 	public SubscriberAccessInfo(SubscriberInfo info, String time) {
