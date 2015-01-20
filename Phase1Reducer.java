@@ -12,7 +12,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import subscriber.*;
 
-public class IntReducer extends Reducer<SubscriberAccessInfo, IntWritable, SubscriberAccessInfo, IntWritable> {
+public class Phase1Reducer extends Reducer<SubscriberAccessInfo, IntWritable, SubscriberAccessInfo, IntWritable> {
 		private IntWritable result = new IntWritable();
 		public void reduce(SubscriberAccessInfo key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
 			int sum  = 0;
