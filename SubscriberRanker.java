@@ -15,11 +15,11 @@ public class SubscriberRanker {
 	final static  String intermediatePath = "intermediate";	
 	public static boolean DEBUG = false;
 
-	public static setDebugFlag(boolean flag) {
+	public static void setDebugFlag(boolean flag) {
 		DEBUG = flag;
 	}
 	
-	public static getDebugFlag(boolean flag) {
+	public static boolean getDebugFlag(boolean flag) {
 		return DEBUG;
 	}
 
@@ -36,8 +36,8 @@ public class SubscriberRanker {
 	}
 
 	public static void execPhase2(String args[]) throws Exception{
-		Job job = setupClass(new Configuration(), "Phase 2", SubscriberRanker.class, SubscriberMapper.class,
-			SubscriberReducer.class, SubscriberReducer.class, SubscriberInfo.class, IntWritable.class, 
+		Job job = setupClass(new Configuration(), "Phase 2", SubscriberRanker.class, Phase2Mapper.class,
+			Phase2Reducer.class, Phase2Reducer.class, SubscriberInfo.class, IntWritable.class, 
 			intermediatePath, args[1]);
 		job.waitForCompletion(true);
 	}
