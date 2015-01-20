@@ -11,7 +11,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import subscriber.*;
 
-public class TokenizerMapper extends Mapper<Object, Text, SubscriberAccessInfo, IntWritable> {
+public class Phase1Mapper extends Mapper<Object, Text, SubscriberAccessInfo, IntWritable> {
 		private static IntWritable one =  new IntWritable(1);
 		private Text word =  new Text();
 		public void map(Object key, Text value, Context context)
