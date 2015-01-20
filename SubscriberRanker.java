@@ -13,7 +13,17 @@ import subscriber.*;
 
 public class SubscriberRanker {
 	final static  String intermediatePath = "intermediate";	
-	 public static void main(String[] args) throws Exception {
+	public static boolean DEBUG = false;
+
+	public static setDebugFlag(boolean flag) {
+		DEBUG = flag;
+	}
+	
+	public static getDebugFlag(boolean flag) {
+		return DEBUG;
+	}
+
+	public static void main(String[] args) throws Exception {
 		execPhase1(args);
 		execPhase2(args);	
   	}
