@@ -95,18 +95,20 @@ public class SubscriberInfo implements WritableComparable<SubscriberInfo> {
 			return false;
 		}
 		SubscriberInfo info = (SubscriberInfo)obj;
-		return  serviceName.equals(info.getServiceName()) &&
-				serviceType.equals(info.getServiceType()) &&
-				(subscriberId == info.getSubscriberId()) &&
-				day.equals(info.getDay());
+		// return  serviceName.equals(info.getServiceName()) &&
+		// 		serviceType.equals(info.getServiceType()) &&
+		// 		(subscriberId == info.getSubscriberId()) &&
+		// 		day.equals(info.getDay());
+		return toString().equals(info.toString());
 	}
 
 	@Override
 	public int hashCode() {
-		return serviceName.hashCode() +
-			serviceType.hashCode() +
-			Long.valueOf(subscriberId).hashCode() + 
-			day.hashCode();
+		// return serviceName.hashCode() +
+		// 	serviceType.hashCode() +
+		// 	Long.valueOf(subscriberId).hashCode() + 
+		// 	day.hashCode();	
+		return toString().hashCode();
 	}
 
 	public static void main(String args[]) {

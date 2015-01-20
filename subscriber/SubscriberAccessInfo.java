@@ -59,6 +59,7 @@ public class SubscriberAccessInfo implements  WritableComparable<SubscriberAcces
 		SubscriberAccessInfo info = (SubscriberAccessInfo)obj;
 		return subInfo.equals(info.getSubInfo()) &&
 			timestamp.equals(info.getTimestamp());
+		
 	}
 
 	@Override
