@@ -88,7 +88,7 @@ public class SubscriberInfo implements WritableComparable<SubscriberInfo> {
 	
 	@Override
 	public String toString() {
-		return serviceType + "\t" + serviceName + "\t" + subscriberId + "\t" + day;
+		return serviceType + "\t" + subscriberId + "\t" +serviceName + "\t" +   day;
 	}	
 	
 	public String getDay() {

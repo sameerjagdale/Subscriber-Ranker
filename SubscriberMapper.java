@@ -15,7 +15,6 @@ public class SubscriberMapper extends Mapper<Object, Text, SubscriberInfo, IntWr
 		private static IntWritable one =  new IntWritable(1);
 		public void map(Object key, Text value, Context context)
 				throws IOException, InterruptedException {
-					System.out.println(SubscriberInfo.genSubscriberInfo(value.toString()));
 					context.write(SubscriberInfo.genSubscriberInfo(value.toString()),one);
 		}
 }

@@ -31,7 +31,7 @@ public class TestClass {
     job.setMapperClass(SubscriberMapper.class);
     job.setCombinerClass(SubscriberReducer.class);
     job.setReducerClass(SubscriberReducer.class);
-    job.setOutputKeyClass(Text.class);
+    job.setOutputKeyClass(SubscriberInfo.class);
     job.setOutputValueClass(IntWritable.class);
     FileInputFormat.addInputPath(job, new Path(args[0]));
     FileOutputFormat.setOutputPath(job, new Path(args[1]));

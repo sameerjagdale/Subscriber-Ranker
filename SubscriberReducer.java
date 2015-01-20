@@ -19,7 +19,6 @@ public class SubscriberReducer extends Reducer<SubscriberInfo, IntWritable, Subs
 			for(IntWritable val : values) {
 				sum += val.get();
 			}
-			System.out.println(key.toString()+ " " + Integer.toString(sum));
 			result.set(sum);
 			context.write(key,result);
 		}	
