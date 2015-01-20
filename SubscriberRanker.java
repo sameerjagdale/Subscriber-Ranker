@@ -29,8 +29,8 @@ public class SubscriberRanker {
   	}
 
 	public static void execPhase1(String args[]) throws Exception{
-		Job job = setupClass(new Configuration(), "Phase 1", SubscriberRanker.class, TokenizerMapper.class,
-			IntReducer.class, IntReducer.class, SubscriberAccessInfo.class, IntWritable.class, 
+		Job job = setupClass(new Configuration(), "Phase 1", SubscriberRanker.class, Phase1Mapper.class,
+			Phase1Reducer.class, Phase1Reducer.class, SubscriberAccessInfo.class, IntWritable.class, 
 			args[0], intermediatePath);
 		job.waitForCompletion(true);
 	}
