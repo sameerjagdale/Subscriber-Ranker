@@ -23,9 +23,18 @@ public class Phase3Reducer extends Reducer<Text, Text, Text,Text> {
 				inputSet.add(ValueHolder.getValueHolderFromString(txt.toString()));	
 			}			
 			int numRecords = inputSet.size();
+			long diff = Integer.MIN_VALUE;	
+			long rank = 0;
+			long count = 1;
 			for( ValueHolder value : inputSet) {
-				long rank = (numRecords - value.getCount()) + 1;
-				System.out.println(value.toString());
+				if(diff != (numRecords - value.getCount()) + 1) {
+					diff = numRecords - value.getCount() + 1;
+					rank += count;
+					count = 1;
+				} else {
+					count++;
+				}
+				// System.out.println(value.toString());
 		 		context.write(key, new Text(value.toString()+ 
 					"\t" + rank+ "/" + numRecords));	
 			}
