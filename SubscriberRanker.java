@@ -10,6 +10,9 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import subscriber.*;
+import phase1.*;
+import phase2.*;
+import phase3.*;
 
 public class SubscriberRanker {
 	final static  String intermediatePath1 = "intermediate1";	

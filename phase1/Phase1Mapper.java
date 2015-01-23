@@ -1,6 +1,6 @@
+package phase1;
 import java.io.IOException;
 import java.util.StringTokenizer;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -12,15 +12,15 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import subscriber.*;
 
-public class Phase1Reducer extends Reducer<SubscriberAccessInfo, IntWritable, SubscriberAccessInfo, IntWritable> {
-		private IntWritable result = new IntWritable();
-		public void reduce(SubscriberAccessInfo key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
-			int sum  = 0;
-			for(IntWritable val : values) {
-				sum += val.get();
-			}
-			result.set(sum);
-			context.write(key,result);
-		}	
-	}
+public class Phase1Mapper extends
+		Mapper<Object, Text, SubscriberAccessInfo, IntWritable> {
+	private static IntWritable one = new IntWritable(1);
+	private Text word = new Text();
 
+	public void map(Object key, Text value, Context context)
+			throws IOException, InterruptedException {
+		context.write(
+				SubscriberAccessInfo.genSubscriberAccessInfo(value.toString()),
+				one);
+	}
+}

@@ -1,3 +1,4 @@
+package phase3;
 import java.io.IOException;
 import java.util.StringTokenizer;
 import org.apache.hadoop.conf.Configuration;
@@ -11,11 +12,13 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import subscriber.*;
 
-public class Phase1Mapper extends Mapper<Object, Text, SubscriberAccessInfo, IntWritable> {
+public class Phase3Mapper extends Mapper<Object, Text, Text,Text> {
 		private static IntWritable one =  new IntWritable(1);
 		private Text word =  new Text();
 		public void map(Object key, Text value, Context context)
 				throws IOException, InterruptedException {
-					context.write(SubscriberAccessInfo.genSubscriberAccessInfo(value.toString()),one);
+					String fields[] = value.toString().split("[\t ]+");
+					context.write(new Text(fields[3]),new Text(fields[0] + "\t" + Long.parseLong(fields[1])
+					+ "\t" + fields[2] + "\t" + Integer.parseInt(fields[4])));
 		}
 }
