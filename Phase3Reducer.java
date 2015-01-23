@@ -34,7 +34,6 @@ public class Phase3Reducer extends Reducer<Text, Text, Text,Text> {
 				} else {
 					count++;
 				}
-				// System.out.println(value.toString());
 		 		context.write(key, new Text(value.toString()+ 
 					"\t" + rank+ "/" + numRecords));	
 			}
@@ -95,9 +94,18 @@ class ValueHolder implements Comparable<ValueHolder>{
 
 			public int compareTo( ValueHolder other) {
 				if((int)(other.getCount() - count) == 0) {
-					return (int)(other.subscriberId - subscriberId);
+					if((int)(subscriberId - other.subscriberId) == 0) {
+						if(serviceName.compareTo(other.getServiceName()) == 0) {
+							return serviceType.compareTo(other.getServiceType());
+						}else { 
+							return serviceName.compareTo(other.getServiceName());
+						} 
+					}else {
+					return (int)(subscriberId - other.subscriberId);
+						}
+				} else {
+					return (int)(other.getCount() - count);
 				}
-				return (int)(other.getCount() - count);
 			}
 
 			public static ValueHolder getValueHolderFromString(String str) {
