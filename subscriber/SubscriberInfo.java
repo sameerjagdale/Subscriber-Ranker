@@ -143,30 +143,54 @@ public class SubscriberInfo implements WritableComparable<SubscriberInfo> {
 	public long getSubscriberId() {
 		return subscriberId;
 	}
+/** Getter function for the day field. 
+ * @return returns the value of the day string. 
+ */
+	public String getDay() {
+		return day;
+	}
 
+/** 
+ * Setter function for the service type field of the class.
+ * @param serviceType string object which is asssigned to the serviceType 
+ * member variable of the class. 
+ */
 	public void setServiceType(String serviceType) {
 		this.serviceType = serviceType;
 	}
 		
+/** 
+ * Setter function for the service name field of the class. 
+ * @param serviceName string object which is assigned to the 
+ * service name field of the class. 
+ */
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
 	}
-	
+
+/**
+ * Setter function for the subscriber id field. 
+ * @param subscriberId assgined to the subscriberId field of the
+ * class. 	
+ */
 	public void setSubscriberId(long subscriberId) {
 		this.subscriberId = subscriberId;
 	}
-	
+
+/** 
+ * Setter function for the day field.
+ * @param day string object which is assigned to the day field of the 
+ * class.
+ */
+	public void setDay(String day) {
+		this.day = day;
+	}
+
 	@Override
 	public String toString() {
 		return serviceType + "\t" + subscriberId + "\t" +serviceName + "\t" +   day;
 	}	
 	
-	public String getDay() {
-		return day;
-	}
-	public void setDay(String day) {
-		this.day = day;
-	}
 
 	@Override
 	public boolean equals(Object obj) {
