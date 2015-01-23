@@ -12,7 +12,8 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import subscriber.*;
 
 public class SubscriberRanker {
-	final static  String intermediatePath = "intermediate";	
+	final static  String intermediatePath1 = "intermediate1";	
+	final static  String intermediatePath2 = "intermediate2";	
 	public static boolean DEBUG = false;
 
 	public static void setDebugFlag(boolean flag) {
@@ -26,19 +27,27 @@ public class SubscriberRanker {
 	public static void main(String[] args) throws Exception {
 		execPhase1(args);
 		execPhase2(args);	
+		execPhase3(args);	
   	}
 
 	public static void execPhase1(String args[]) throws Exception{
 		Job job = setupClass(new Configuration(), "Phase 1", SubscriberRanker.class, Phase1Mapper.class,
 			Phase1Reducer.class, Phase1Reducer.class, SubscriberAccessInfo.class, IntWritable.class, 
-			args[0], intermediatePath);
+			args[0], intermediatePath1);
 		job.waitForCompletion(true);
 	}
 
 	public static void execPhase2(String args[]) throws Exception{
 		Job job = setupClass(new Configuration(), "Phase 2", SubscriberRanker.class, Phase2Mapper.class,
 			Phase2Reducer.class, Phase2Reducer.class, SubscriberInfo.class, IntWritable.class, 
-			intermediatePath, args[1]);
+			intermediatePath1, intermediatePath2);
+		job.waitForCompletion(true);
+	}
+
+	public static void execPhase3(String args[]) throws Exception{
+		Job job = setupClass(new Configuration(), "Phase 3", SubscriberRanker.class, Phase3Mapper.class,
+			Phase3Reducer.class, Phase3Reducer.class, Text.class, Text.class, 
+			intermediatePath2, args[1]);
 		job.waitForCompletion(true);
 	}
 
