@@ -14,18 +14,30 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import subscriber.*;
 
+/** 
+ * The class implements the reducer for the last phase of the program. 
+ * @author Sameer Jagdale
+ */
 public class Phase3Reducer extends Reducer<Text, Text, Text, Text> {
 
 	public void reduce(Text key, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
 		String str = "";
 		Set<ValueHolder> inputSet = new TreeSet<ValueHolder>();
+		// Read values into a Tree Set. This ensures values are sorted. 
+		// This provides ease while ranking the output. 
 		for (Text txt : values) {
 			inputSet.add(ValueHolder.getValueHolderFromString(txt.toString()));
 		}
+		// Defines the number of records per day. 
 		int numRecords = inputSet.size();
 		long diff = Integer.MIN_VALUE;
 		long rank = 0;
+		// Count will hold the number of records having the same count. 
+		// This is required because the records having the same count 
+		// should have the same rank. However the rank of subsequent 
+		// records will have to incremented by the number of subscribers
+		// with the count value. 
 		long count = 1;
 		for (ValueHolder value : inputSet) {
 			if (diff != (numRecords - value.getCount()) + 1) {
@@ -42,6 +54,13 @@ public class Phase3Reducer extends Reducer<Text, Text, Text, Text> {
 
 }
 
+/** 
+ * The class acts a placeholder for the values. Contains all the input fields
+ * such as serviceName, subscriberId, serviceType and count. The compareTo method which
+ * is overriden orders the objects first on count, followed by subscriberId, followed by 
+ * serviceName and finally serviceType. 
+ * @author Sameer Jagdale
+ */
 class ValueHolder implements Comparable<ValueHolder> {
 	String serviceName;
 	long subscriberId;
