@@ -12,6 +12,10 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import subscriber.*;
 
+/** 
+ * Class implemnts the mapper for the third and final phase of program. 
+ * @author Sameer Jagdale
+ */
 public class Phase3Mapper extends Mapper<Object, Text, Text,Text> {
 		private static IntWritable one =  new IntWritable(1);
 		private Text word =  new Text();
